@@ -4,6 +4,14 @@ What changed in each TestFlight build of iOS-mosh. The section of the version be
 also the build's "What to Test" text in TestFlight (`App/fastlane/Fastfile` cuts it from here), so
 inside a section each item stays on one line and the text stays plain: no "<", no emoji.
 
+## 0.2.2 (2026-11-25)
+
+The same app as 0.2.1, built from the public source.
+
+- The source of iOS-mosh is public now: https://github.com/trickv/ios-mosh . This build was made from it, and the commit that Settings, About shows exists there.
+- Nothing changes in how the app works. Build numbers continue from the earlier builds.
+- This build was tested on the simulator only.
+
 ## 0.2.1 (2026-11-24)
 
 Licences, privacy and a display fix. Nothing changes in how sessions work.

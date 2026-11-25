@@ -2,7 +2,7 @@
 // The marketing version, for both apps (the Dev app and the TestFlight app), is set
 // here and only here; App/fastlane/Fastfile reads it too. Bump it for every
 // TestFlight upload, with its section in CHANGELOG.md (docs/BUILD.md, "TestFlight").
-MARKETING_VERSION = 0.2.1
+MARKETING_VERSION = 0.2.2
 // Defaults, so a build without the generated files still works.
 CURRENT_PROJECT_VERSION = 0
 IOSMOSH_GIT_SHA = unknown

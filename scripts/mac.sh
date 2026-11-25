@@ -43,7 +43,9 @@ if [ "$RAW" = 1 ]; then
 fi
 
 if [ "$SYNC" = 1 ]; then
-  count="$(git -C "$ROOT" rev-list --count HEAD)"
+  # The public history starts at one root commit; the builds made before it were numbered up
+  # to 237 from the commit count of the history that is not published. Hence the offset.
+  count="$(( $(git -C "$ROOT" rev-list --count HEAD) + 240 ))"
   sha="$(git -C "$ROOT" rev-parse --short HEAD)"
   [ -z "$(git -C "$ROOT" status --porcelain)" ] || sha="$sha-dirty"
   mkdir -p "$ROOT/App"

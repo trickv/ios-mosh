@@ -137,15 +137,15 @@ lane :listing do
   FileUtils.mkdir_p(stage)
   FileUtils.cp_r("#{__dir__}/metadata", "#{stage}/metadata")
   FileUtils.cp_r("#{__dir__}/screenshots", "#{stage}/screenshots")
-  # SUPPORT.md and PRIVACY.md are files in this repository, which is still private: their links
-  # would answer 404. Drop these two lines once the repository is public.
-  %w[support_url privacy_url].each { |f| FileUtils.rm_f("#{stage}/metadata/en-US/#{f}.txt") }
+  # SUPPORT.md and PRIVACY.md are files in this repository, which is public: their links are sent.
   UI.user_error!("review_information/ is never sent from here") if Dir.exist?("#{stage}/metadata/review_information")
   deliver(
     api_key_path: KEY, app_identifier: BUNDLE, platform: "ios",
     metadata_path: "#{stage}/metadata", screenshots_path: "#{stage}/screenshots",
     languages: ["en-US"],
-    skip_binary_upload: true, skip_app_version_update: true,
+    # The App Store version being prepared carries the version of the build that will be
+    # attached to it (App/Local.xcconfig).
+    skip_binary_upload: true, app_version: marketing_version, skip_app_version_update: false,
     submit_for_review: false,
     run_precheck_before_submit: false, precheck_include_in_app_purchases: false,
     overwrite_screenshots: false, force: true
