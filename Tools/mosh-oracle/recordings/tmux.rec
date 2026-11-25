@@ -1,0 +1,38 @@
+# tmux: new session, split panes, status line, copy mode, mouse mode on, kill.
+size 100, 30
+seed 14
+expect "golden$ "
+# no configuration file; panes run the same plain bash as the outer shell, so the
+# prompt is the fixed one
+type "tmux -f /dev/null start-server ';' set -g default-command 'env PS1=\"golden\\$ \" bash --norc --noprofile' ';' new-session -s golden\r", 10
+expect "[golden]"
+wait 1500
+type "echo first pane\r"
+wait 500
+send "\x02%"
+wait 1000
+type "seq 1 40\r"
+wait 600
+send "\x02\""
+wait 1000
+type "echo third pane\r"
+wait 400
+# copy mode: up three lines, start a selection, extend it, copy
+send "\x02["
+wait 400
+send "\x1b[A\x1b[A\x1b[A"
+wait 300
+send "\x00"
+wait 200
+send "\x1b[C\x1b[C\x1b[C\x1b[C"
+wait 300
+send "\x1bw"
+wait 400
+type "tmux set -g mouse on\r"
+wait 600
+send "\x02o"
+wait 400
+type "tmux kill-server\r"
+expect "golden$ "
+type "exit\r"
+exit

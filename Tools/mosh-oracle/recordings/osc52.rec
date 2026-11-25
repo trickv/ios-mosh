@@ -1,0 +1,10 @@
+# OSC 52: valid, invalid and oversize clipboard writes.
+size 80, 24
+seed 21
+max_states 70
+expect "golden$ "
+type "bash osc52.sh\r"
+expect "done"
+expect "golden$ "
+type "exit\r"
+exit

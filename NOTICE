@@ -1,0 +1,21 @@
+iOS-mosh
+Copyright (C) 2026 Patrick van Staveren. Portions Copyright 2012 Keith Winstein and the mosh
+authors (https://mosh.org), ported from mosh 1.4.0.
+
+This program is free software: you can redistribute it and/or modify it under the terms of the
+GNU General Public License as published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details. Its full text is in the file LICENSE.
+
+The files ported from mosh 1.4.0 carry mosh's copyright notice at their head. The OpenSSL linking
+exception of mosh's sources is not carried over: this port links no OpenSSL.
+
+The app is built with Swift packages under their own licences (SwiftTerm: MIT; SwiftNIO, SwiftNIO
+SSH, SwiftNIO Transport Services, Swift Crypto and the packages they use: Apache License 2.0),
+at the versions in Package.resolved. Their licence and NOTICE files are in
+App/ThirdPartyLicences (scripts/gen-licences.py). The terminal font, Hack Nerd Font Mono, is
+under its own licences, in App/Fonts/licenses (App/Fonts/README.md). The app shows all of these
+texts under Settings > About.

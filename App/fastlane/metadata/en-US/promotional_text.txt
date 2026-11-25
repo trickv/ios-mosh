@@ -1,0 +1,1 @@
+Several sessions at once, on one host or on several. Going back to the list keeps a session on its server; a tap on its row brings it back.

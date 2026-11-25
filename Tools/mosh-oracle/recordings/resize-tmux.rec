@@ -1,0 +1,31 @@
+# Window resizes while tmux shows two panes.
+size 80, 24
+seed 24
+expect "golden$ "
+# no configuration file; panes run the same plain bash as the outer shell, so the
+# prompt is the fixed one
+type "tmux -f /dev/null start-server ';' set -g default-command 'env PS1=\"golden\\$ \" bash --norc --noprofile' ';' new-session -s golden\r", 10
+expect "[golden]"
+wait 1500
+send "\x02%"
+wait 1000
+type "seq 1 30\r"
+wait 600
+resize 120, 40
+wait 800
+type "echo bigger\r"
+wait 400
+resize 50, 12
+wait 800
+type "echo smaller\r"
+wait 400
+resize 80, 1
+wait 800
+resize 2, 24
+wait 800
+resize 80, 24
+wait 800
+type "tmux kill-server\r"
+expect "golden$ "
+type "exit\r"
+exit

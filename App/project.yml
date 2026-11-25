@@ -1,0 +1,187 @@
+# XcodeGen project for the iOS app. The generated IOSMosh.xcodeproj and
+# IOSMosh/Info.plist are not committed:
+#   cd App && xcodegen generate
+# Builds run on the Mac through scripts/mac.sh and scripts/deploy.sh.
+#
+# Signing is not in this file. App/Signing.xcconfig exists only on the Mac (see
+# docs/BUILD.md) and reaches the app target through Local.xcconfig. Signing
+# settings on the xcodebuild command line would also apply to the Swift packages.
+
+name: IOSMosh
+
+options:
+  deploymentTarget:
+    iOS: "18.0"
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+
+packages:
+  MoshKit:
+    path: ..
+  # Same pin as Package.swift, so Xcode resolves one copy.
+  SwiftTerm:
+    url: https://github.com/migueldeicaza/SwiftTerm.git
+    exactVersion: 1.99.3
+
+schemes:
+  # Simulator builds and tests.
+  IOSMosh:
+    build:
+      targets:
+        IOSMosh: all
+        IOSMoshTests: [test]
+        IOSMoshUITests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - IOSMoshTests
+        - IOSMoshUITests
+  # Device builds and TestFlight archives: the app target only, so nothing else
+  # needs signing.
+  IOSMoshDevice:
+    build:
+      targets:
+        IOSMosh: all
+    run:
+      config: Debug
+    archive:
+      config: Release
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    IPHONEOS_DEPLOYMENT_TARGET: "18.0"
+
+targets:
+  IOSMosh:
+    type: application
+    platform: iOS
+    configFiles:
+      Debug: Local.xcconfig
+      Release: Local.xcconfig
+    sources:
+      - path: IOSMosh
+        excludes:
+          - "Info.plist"
+      - path: SurfaceKit
+      # The terminal font and its licences (Fonts/README.md), copied as the folder "Fonts".
+      - path: Fonts
+        type: folder
+        buildPhase: resources
+      # The licence pages under About (IOSMosh/LicencePages.swift): the repository's own GPL
+      # text, and the licence and NOTICE files of the resolved packages, written by
+      # scripts/gen-licences.py, copied as the folder "ThirdPartyLicences".
+      - path: ../LICENSE
+        buildPhase: resources
+      # The App Store permission (GPLv3 section 7) with mosh's COPYING.iOS, shown under About.
+      - path: ../COPYING.iOS
+        buildPhase: resources
+      - path: ThirdPartyLicences
+        type: folder
+        buildPhase: resources
+      # The privacy policy, shown under Settings > Privacy (IOSMosh/PrivacyPolicy.swift).
+      # IOSMosh/PrivacyInfo.xcprivacy, the privacy manifest, is a resource through the IOSMosh
+      # path above (XcodeGen copies .xcprivacy files as resources; PrivacyTests checks the app).
+      - path: ../PRIVACY.md
+        buildPhase: resources
+    dependencies:
+      - package: MoshKit
+        product: MoshKit
+      - package: SwiftTerm
+        product: SwiftTerm
+    info:
+      path: IOSMosh/Info.plist
+      # XcodeGen writes Info.plist from these keys on every generate.
+      properties:
+        # Debug is the separate app "iOS-mosh Dev" (us.v9n.ios-mosh.dev), Release the
+        # TestFlight app "iOS-mosh" (us.v9n.ios-mosh); see the target's configs below.
+        CFBundleDisplayName: "$(IOSMOSH_DISPLAY_NAME)"
+        # The owner's export compliance answer: no non-exempt encryption (mosh's
+        # AES-OCB and SSH are exempt). Every configuration declares it.
+        ITSAppUsesNonExemptEncryption: false
+        CFBundleIconName: AppIcon
+        # Build-setting references: the values come from Version.xcconfig,
+        # which scripts/mac.sh writes before each sync.
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        IOSMoshGitSHA: "$(IOSMOSH_GIT_SHA)"
+        LSRequiresIPhoneOS: true
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+          UISceneConfigurations:
+            UIWindowSceneSessionRoleApplication:
+              - UISceneConfigurationName: Default
+                UISceneDelegateClassName: "$(PRODUCT_MODULE_NAME).SceneDelegate"
+        UIApplicationSupportsIndirectInputEvents: true
+        UILaunchScreen: {}
+        UIRequiredDeviceCapabilities:
+          - arm64
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        # The bundled terminal font (TerminalFont.swift), registered by iOS at launch.
+        UIAppFonts:
+          - Fonts/HackNerdFontMono-Regular.ttf
+          - Fonts/HackNerdFontMono-Bold.ttf
+          - Fonts/HackNerdFontMono-Italic.ttf
+          - Fonts/HackNerdFontMono-BoldItalic.ttf
+        NSLocalNetworkUsageDescription: iOS-mosh connects to hosts on your local network when you ask it to.
+    settings:
+      base:
+        PRODUCT_NAME: IOSMosh
+        TARGETED_DEVICE_FAMILY: "1"  # iPhone only
+        SUPPORTS_MACCATALYST: false
+        # Without this the icon compiles but CFBundleIconName is not honoured.
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+      # Per configuration: the app's identity, and the signing identity names (team,
+      # profiles and keychain come from Signing.xcconfig). The identity names must be
+      # target settings: XcodeGen's preset sets CODE_SIGN_IDENTITY on the target, and
+      # that beats an xcconfig.
+      # Debug (simulator, device builds through devicectl) is the separate app
+      # "iOS-mosh Dev" with its own container, hosts and SSH key, so it sits beside
+      # the TestFlight app on the phone. Release (TestFlight archives) keeps the App
+      # Store id. No app group, no shared keychain group.
+      configs:
+        Debug:
+          PRODUCT_BUNDLE_IDENTIFIER: us.v9n.ios-mosh.dev
+          IOSMOSH_DISPLAY_NAME: iOS-mosh Dev
+          "CODE_SIGN_IDENTITY[sdk=iphoneos*]": Apple Development
+        Release:
+          PRODUCT_BUNDLE_IDENTIFIER: us.v9n.ios-mosh
+          IOSMOSH_DISPLAY_NAME: iOS-mosh
+          "CODE_SIGN_IDENTITY[sdk=iphoneos*]": Apple Distribution
+
+  IOSMoshTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: IOSMoshTests
+      # The packages the app resolves (LicencePagesTests checks that each has its licence in the app).
+      - path: ../Package.resolved
+        buildPhase: resources
+    dependencies:
+      - target: IOSMosh
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: us.v9n.ios-mosh.tests
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/IOSMosh.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/IOSMosh"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+
+  IOSMoshUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: IOSMoshUITests
+    dependencies:
+      - target: IOSMosh
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: us.v9n.ios-mosh.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
+        TEST_TARGET_NAME: IOSMosh

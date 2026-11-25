@@ -1,0 +1,32 @@
+# Window resizes during a bash session: larger, smaller, one row, two columns.
+size 80, 24
+seed 22
+expect "golden$ "
+type "seq 1 30\r"
+expect "golden$ "
+resize 100, 30
+wait 300
+type "echo wider and taller\r"
+expect "golden$ "
+resize 60, 10
+wait 300
+type "ls --color /etc | head -40\r"
+expect "golden$ "
+resize 80, 1
+wait 300
+type "echo one row\r"
+wait 600
+resize 2, 24
+wait 300
+type "echo ab\r"
+wait 600
+resize 1, 1
+wait 300
+type "echo x\r"
+wait 600
+resize 80, 24
+wait 300
+type "echo back to 80x24\r"
+expect "golden$ "
+type "exit\r"
+exit

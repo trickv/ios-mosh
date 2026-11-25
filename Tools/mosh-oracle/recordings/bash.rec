@@ -1,0 +1,40 @@
+# A bash session: prompt, ls --color, output that scrolls, line editing with cursor
+# keys and history, clear.
+size 80, 24
+seed 11
+expect "golden$ "
+type "echo hello world\r"
+expect "golden$ "
+type "ls --color /etc\r"
+expect "golden$ "
+type "seq 1 120\r"
+expect "golden$ "
+# line editing: cursor left, insert in the middle, home, end, backspace
+type "echo abcdefghij"
+send "\x1b[D\x1b[D\x1b[D"
+wait 200
+type "XYZ"
+send "\x01"
+wait 150
+type "true; "
+send "\x05"
+wait 150
+send "\x7f\x7f"
+wait 150
+send "\r"
+expect "golden$ "
+# history: up twice, down once, kill the line
+send "\x1b[A"
+wait 200
+send "\x1b[A"
+wait 200
+send "\x1b[B"
+wait 200
+send "\x15"
+wait 150
+type "clear\r"
+expect "golden$ "
+type "echo after clear\r"
+expect "golden$ "
+type "exit\r"
+exit

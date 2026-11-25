@@ -1,0 +1,46 @@
+{"num":1,"cursor":[5,19],"combining":[5,19],"next_print_will_wrap":true,"params":"6;1","dispatch_chars":[72],"parsed":true,"parsed_params":[6,1],"rows":{"0":[{"t":"aaaaaaaaaaaaaaaaaaaa"}],"1":[{"t":"bbbbbbbbbbbbbbbbbbbb"}],"2":[{"t":"cccccccccccccccccccc"}],"3":[{"t":"dddddddddddddddddddd"}],"4":[{"t":"eeeeeeeeeeeeeeeeeeee"}],"5":[{"t":"ffffffffffffffffffff"}]}}
+{"num":2,"icon_name":"title","window_title":"title","title_initialized":true,"params":"","dispatch_chars":[],"parsed":false,"osc_string":"0;title"}
+{"num":3,"icon_name":"icon","osc_string":"1;icon"}
+{"num":4,"clipboard":"Y2xpcA==","osc_string":"52;c;Y2xpcA=="}
+{"num":5,"next_print_will_wrap":false,"bell_count":1}
+{"num":6,"pen":{"fg":33,"bg":45,"at":1},"params":"1;33;45","dispatch_chars":[109],"parsed":true,"parsed_params":[1,33,45]}
+{"num":7,"cursor":[0,0],"combining":[0,0],"scroll_region":[1,3],"params":"2;4","dispatch_chars":[114],"parsed_params":[2,4]}
+{"num":8,"origin_mode":true,"params":"6","dispatch_chars":[63,104],"parsed_params":[6]}
+{"num":9,"insert_mode":true,"params":"4","dispatch_chars":[104],"parsed_params":[4]}
+{"num":10,"cursor_visible":false,"params":"25","dispatch_chars":[63,108],"parsed_params":[25]}
+{"num":11,"application_mode_cursor_keys":true,"params":"1","dispatch_chars":[63,104],"parsed_params":[1]}
+{"num":12,"cursor":[2,4],"combining":[2,4],"saved":{"cursor":[2,4],"pen":{"fg":33,"bg":45,"at":1},"auto_wrap_mode":true,"origin_mode":true},"params":"","dispatch_chars":[55],"parsed":false,"parsed_params":[2,5]}
+{"num":13,"auto_wrap_mode":false,"reverse_video":true,"bracketed_paste":true,"mouse_reporting_mode":1002,"mouse_focus_event":true,"mouse_alternate_scroll":true,"mouse_encoding_mode":1006,"params":"7","dispatch_chars":[63,108],"parsed":true,"parsed_params":[7]}
+{"num":14,"default_tabs":false,"tabs":[],"params":"3","dispatch_chars":[103],"parsed_params":[3]}
+{"num":15,"cursor":[2,2],"combining":[2,2],"tabs":[2],"params":"","dispatch_chars":[],"parsed":false,"parsed_params":[2,3]}
+{"num":16,"cursor":[2,3],"rows":{"2":[{"t":"cc"},{"t":"x","fg":33,"bg":45,"at":1},{"t":"ccccccccccccccccc"}]}}
+{"num":17,"scroll_region":[0,5],"pen":{},"saved":{"cursor":[0,0],"pen":{},"auto_wrap_mode":true,"origin_mode":false},"origin_mode":false,"insert_mode":false,"cursor_visible":true,"application_mode_cursor_keys":false,"dispatch_chars":[33,112]}
+{"num":18,"cursor":[2,19],"combining":[2,18],"rows":{"2":[{"t":"cc"},{"t":"x","fg":33,"bg":45,"at":1},{"t":"after soft resetc"}]}}
+{"num":19,"cursor":[0,0],"combining":[0,0],"auto_wrap_mode":true,"dispatch_chars":[56]}
+{"num":20,"cursor":[0,1],"rows":{"0":[{"t":"yaaaaaaaaaaaaaaaaaaa"}]}}
+{"num":21,"cursor":[0,0],"scroll_region":[1,3],"pen":{"fg":33,"bg":45,"at":1},"origin_mode":true,"insert_mode":true,"cursor_visible":false,"application_mode_cursor_keys":true,"params":"1","dispatch_chars":[63,104],"parsed":true,"parsed_params":[1]}
+{"num":22,"cursor":[1,4],"combining":[1,4],"saved":{"cursor":[1,4],"pen":{"fg":33,"bg":45,"at":1},"auto_wrap_mode":true,"origin_mode":true},"params":"","dispatch_chars":[55],"parsed":false,"parsed_params":[1,5]}
+{"num":23,"cursor":[0,0],"combining":[0,0],"default_tabs":true,"tabs":[0,8,16],"scroll_region":[0,5],"pen":{},"saved":{"cursor":[0,0],"pen":{},"auto_wrap_mode":true,"origin_mode":false},"origin_mode":false,"insert_mode":false,"cursor_visible":true,"reverse_video":false,"bracketed_paste":false,"mouse_reporting_mode":0,"mouse_focus_event":false,"mouse_alternate_scroll":false,"mouse_encoding_mode":0,"application_mode_cursor_keys":false,"window_title":"","clipboard":"","dispatch_chars":[99],"rows":{"0":[{"e":20}],"1":[{"e":20}],"2":[{"e":20}],"3":[{"e":20}],"4":[{"e":20}],"5":[{"e":20}]}}
+{"num":24,"cursor":[0,16],"combining":[0,15],"rows":{"0":[{"t":"after hard reset"},{"e":4}]}}
+{"num":25,"cursor":[0,19],"combining":[0,19],"next_print_will_wrap":true,"rows":{"0":[{"t":"after hard reset"},{"e":3},{"t":"z"}]}}
+{"num":26,"cursor":[0,0],"combining":[0,0],"next_print_will_wrap":false,"dispatch_chars":[56]}
+{"num":27,"cursor":[0,1],"rows":{"0":[{"t":"wfter hard reset"},{"e":3},{"t":"z"}]}}
+{"num":28,"window_title":"again","dispatch_chars":[],"osc_string":"2;again"}
+{"num":29,"clipboard":"YWdhaW4=","osc_string":"52;c;YWdhaW4="}
+{"num":30,"bell_count":2}
+{"num":31,"cursor":[0,0],"window_title":"","clipboard":"","dispatch_chars":[99],"rows":{"0":1}}
+{"num":32,"bell_count":3}
+{"num":33,"dispatch_chars":[35,56],"rows":{"0":[{"t":"EEEEEEEEEEEEEEEEEEEE"}],"1":[{"t":"EEEEEEEEEEEEEEEEEEEE"}],"2":[{"t":"EEEEEEEEEEEEEEEEEEEE"}],"3":[{"t":"EEEEEEEEEEEEEEEEEEEE"}],"4":[{"t":"EEEEEEEEEEEEEEEEEEEE"}],"5":[{"t":"EEEEEEEEEEEEEEEEEEEE"}]}}
+{"num":34,"pen":{"bg":42},"parsed_params":[42],"rows":{"0":[{"t":"EEEEEEEEEEEEEEEEEEEE","bg":42}],"1":[{"t":"EEEEEEEEEEEEEEEEEEEE","bg":42}],"2":[{"t":"EEEEEEEEEEEEEEEEEEEE","bg":42}],"3":[{"t":"EEEEEEEEEEEEEEEEEEEE","bg":42}],"4":[{"t":"EEEEEEEEEEEEEEEEEEEE","bg":42}],"5":[{"t":"EEEEEEEEEEEEEEEEEEEE","bg":42}]}}
+{"num":35,"cursor":[2,5],"combining":[2,4],"pen":{},"params":"3;3","dispatch_chars":[72],"parsed":true,"parsed_params":[3,3],"rows":{"2":[{"t":"EE","bg":42},{"t":"mid"},{"t":"EEEEEEEEEEEEEEE","bg":42}]}}
+{"num":36,"cursor":[3,4],"combining":[3,2],"params":"4;1","parsed_params":[4,1],"rows":{"3":[{"c":["漢"],"wide":true},{"e":1},{"c":["字"],"wide":true},{"e":1},{"t":"EEEEEEEEEEEEEEEE","bg":42}]}}
+{"num":37,"params":"","dispatch_chars":[35,56],"parsed":false,"rows":{"0":[{"t":"EEEEEEEEEEEEEEEEEEEE"}],"1":[{"t":"EEEEEEEEEEEEEEEEEEEE"}],"2":[{"t":"EEEEEEEEEEEEEEEEEEEE"}],"3":[{"t":"EEEEEEEEEEEEEEEEEEEE"}],"4":[{"t":"EEEEEEEEEEEEEEEEEEEE"}],"5":[{"t":"EEEEEEEEEEEEEEEEEEEE"}]}}
+{"num":38,"dispatch_chars":[35,51]}
+{"num":39,"dispatch_chars":[35,57]}
+{"num":40,"cursor":[3,5],"combining":[3,4],"rows":{"3":[{"t":"EEEEqEEEEEEEEEEEEEEE"}]}}
+{"num":41,"cursor":[0,0],"combining":[0,0],"dispatch_chars":[99],"rows":{"0":[{"e":20}],"1":[{"e":20}],"2":[{"e":20}],"3":[{"e":20}],"4":[{"e":20}],"5":[{"e":20}]}}
+{"num":42,"parser_state":"Escape","dispatch_chars":[]}
+{"num":43,"parser_state":"Ground","dispatch_chars":[99]}
+{"num":44,"parser_state":"CSI_Intermediate","dispatch_chars":[33]}
+{"num":45,"parser_state":"Ground","dispatch_chars":[33,112]}
+{"num":46,"cursor":[0,3],"combining":[0,2],"rows":{"0":[{"t":"end"},{"e":17}]}}

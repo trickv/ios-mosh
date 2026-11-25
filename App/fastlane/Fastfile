@@ -1,0 +1,170 @@
+# TestFlight pipeline. Runs on the Mac through scripts/mac-testflight.sh, which
+# unlocks the signing keychain first. Secrets stay in ~/signing; none are here.
+#
+# Apple's API cannot create the app record (App Store Connect > Apps > +). That is
+# done once by hand; everything else is in these lanes.
+
+default_platform(:ios)
+
+S = File.expand_path("~/signing")
+KC = File.expand_path("~/Library/Keychains/ios-mosh.keychain-db")
+KEY = "#{S}/asc.json"
+# The TestFlight app: the Release configuration. Debug builds are the separate Dev
+# app us.v9n.ios-mosh.dev (App/project.yml), which never goes through these lanes.
+BUNDLE = "us.v9n.ios-mosh"
+APPSTORE_PROFILE = "ios-mosh-appstore"
+APP_DIR = File.expand_path("..", __dir__)
+OUT = File.expand_path("~/ios-mosh-out/testflight")
+GROUP = "Internal"
+
+def connect
+  Spaceship::ConnectAPI.token = Spaceship::ConnectAPI::Token.from_json_file(KEY)
+end
+
+def app_record
+  connect
+  Spaceship::ConnectAPI::App.find(BUNDLE)
+end
+
+# The marketing version, one place for Debug and Release: App/Local.xcconfig.
+def marketing_version
+  v = File.read("#{APP_DIR}/Local.xcconfig")[/^MARKETING_VERSION\s*=\s*(\S+)/, 1]
+  UI.user_error!("no MARKETING_VERSION in App/Local.xcconfig") unless v
+  v
+end
+
+# "What to Test": the section "## <version> ..." of CHANGELOG.md, up to the next "## ".
+# TestFlight takes plain text up to 4000 bytes; pilot would strip "<" and emoji.
+def whats_new(version)
+  text = File.read(File.expand_path("../CHANGELOG.md", APP_DIR), encoding: "UTF-8")
+  section = text[/^## #{Regexp.escape(version)}(?![\w.])[^\n]*\n(.*?)(?=^## |\z)/m, 1].to_s.strip
+  UI.user_error!("CHANGELOG.md has no section for #{version}: write it before an upload") if section.empty?
+  UI.user_error!("What to Test for #{version} is #{section.bytesize} bytes; TestFlight takes 4000") if section.bytesize > 4000
+  UI.user_error!("What to Test for #{version} holds a '<', which TestFlight does not take") if section.include?("<")
+  section
+end
+
+desc "Distribution certificate in our own keychain and an App Store profile"
+lane :signing_dist do
+  cert_id_file = "#{S}/dist_cert_id"
+  if File.exist?(cert_id_file)
+    cert_id = File.read(cert_id_file).strip
+    UI.message("reusing distribution certificate from an earlier run")
+  else
+    # force: the Apple Distribution identity in the login keychain cannot be used
+    # over SSH, and cert would otherwise settle for it.
+    cert(development: false, force: true, api_key_path: KEY, keychain_path: KC,
+         keychain_password: File.read("#{S}/kc.pass").strip, output_path: S)
+    cert_id = lane_context[SharedValues::CERT_CERTIFICATE_ID]
+    File.write(cert_id_file, cert_id)
+  end
+  sigh(api_key_path: KEY, app_identifier: BUNDLE, provisioning_name: APPSTORE_PROFILE,
+       cert_id: cert_id, force: true, output_path: S,
+       filename: "#{APPSTORE_PROFILE}.mobileprovision")
+end
+
+desc "Does the app record exist?"
+lane :record do
+  app = app_record
+  if app
+    UI.success("app record exists: #{app.name}")
+  else
+    UI.user_error!("no app record for #{BUNDLE} yet. Create it once in App Store Connect (docs/BUILD.md).")
+  end
+end
+
+desc "Archive a Release build and export an App Store ipa (no upload)"
+lane :archive do |options|
+  build_number = options[:build_number] || sh("grep CURRENT_PROJECT_VERSION #{APP_DIR}/Version.xcconfig | cut -d= -f2", log: false).strip
+  # The text an upload of this version would carry, checked before the archive.
+  UI.message("What to Test for #{marketing_version}: #{whats_new(marketing_version).bytesize} bytes from CHANGELOG.md")
+  gym(
+    project: "#{APP_DIR}/IOSMosh.xcodeproj",
+    scheme: "IOSMoshDevice",
+    configuration: "Release",
+    clean: false,
+    derived_data_path: File.expand_path("~/ios-mosh-dd-release"),
+    archive_path: "#{OUT}/IOSMosh.xcarchive",
+    output_directory: OUT,
+    output_name: "IOSMosh.ipa",
+    export_method: "app-store",
+    export_options: {
+      signingStyle: "manual",
+      provisioningProfiles: { BUNDLE => APPSTORE_PROFILE },
+      manageAppVersionAndBuildNumber: false,
+    },
+    skip_profile_detection: true,
+    xcargs: "-skipPackagePluginValidation CURRENT_PROJECT_VERSION=#{build_number}",
+    buildlog_path: OUT
+  )
+end
+
+desc "Archive, upload to TestFlight, wait for processing, set What to Test. The build number is the commit count, or one above the newest upload"
+lane :beta do
+  app = app_record
+  UI.user_error!("no app record for #{BUNDLE} yet. Create it once in App Store Connect (docs/BUILD.md).") unless app
+  commit_count = sh("grep CURRENT_PROJECT_VERSION #{APP_DIR}/Version.xcconfig | cut -d= -f2", log: false).strip.to_i
+  version = marketing_version
+  changelog = whats_new(version)
+  newest = latest_testflight_build_number(api_key_path: KEY, app_identifier: BUNDLE, version: version, initial_build_number: 0)
+  build_number = [commit_count, newest.to_i + 1].max
+  archive(build_number: build_number)
+  # Waits until Apple has processed the build (What to Test can only be set on a
+  # processed build), then sets it. skip_submission: after the text, pilot stops:
+  # no group, no tester, no external distribution, no beta review. The internal
+  # group already has access to all builds, so its testers get the build.
+  pilot(api_key_path: KEY, app_identifier: BUNDLE, ipa: "#{OUT}/IOSMosh.ipa",
+        changelog: changelog,
+        skip_waiting_for_build_processing: false,
+        wait_processing_interval: 60,
+        wait_processing_timeout_duration: 5400,
+        distribute_external: false,
+        skip_submission: true)
+  UI.success("uploaded #{version} (#{build_number}), processed, What to Test set")
+end
+
+desc "App Store listing: the texts in fastlane/metadata and the screenshots in fastlane/screenshots, nothing else"
+# No binary, no build attached, no submission, no price or availability, no age rating, no App
+# Review contact (no app_review_information and no review_information/ folder: the contact fields
+# the owner typed stay as they are). skip_app_version_update: the texts go onto the version that
+# is being edited, under the version string it has (0.1 on 2026-11-24); renaming it is the owner's
+# call. Note: deliver removes review attachments when app_review_attachment_file is unset (there
+# were none on 2026-11-24). docs/notes/publication/listing-state.md has the details.
+lane :listing do
+  UI.user_error!("no app record for #{BUNDLE} yet") unless app_record
+  stage = "#{OUT}/listing"
+  FileUtils.rm_rf(stage)
+  FileUtils.mkdir_p(stage)
+  FileUtils.cp_r("#{__dir__}/metadata", "#{stage}/metadata")
+  FileUtils.cp_r("#{__dir__}/screenshots", "#{stage}/screenshots")
+  # SUPPORT.md and PRIVACY.md are files in this repository, which is still private: their links
+  # would answer 404. Drop these two lines once the repository is public.
+  %w[support_url privacy_url].each { |f| FileUtils.rm_f("#{stage}/metadata/en-US/#{f}.txt") }
+  UI.user_error!("review_information/ is never sent from here") if Dir.exist?("#{stage}/metadata/review_information")
+  deliver(
+    api_key_path: KEY, app_identifier: BUNDLE, platform: "ios",
+    metadata_path: "#{stage}/metadata", screenshots_path: "#{stage}/screenshots",
+    languages: ["en-US"],
+    skip_binary_upload: true, skip_app_version_update: true,
+    submit_for_review: false,
+    run_precheck_before_submit: false, precheck_include_in_app_purchases: false,
+    overwrite_screenshots: false, force: true
+  )
+  UI.success("listing texts and screenshots uploaded; nothing submitted")
+end
+
+desc "Internal tester group with access to every build, with the account holder in it"
+lane :testers do
+  app = app_record
+  UI.user_error!("no app record for #{BUNDLE} yet") unless app
+  group = app.get_beta_groups(filter: { name: GROUP }).first
+  group ||= app.create_beta_group(group_name: GROUP, is_internal_group: true, has_access_to_all_builds: true)
+  holder = Spaceship::ConnectAPI::User.all.find { |u| u.roles.include?("ACCOUNT_HOLDER") }
+  UI.user_error!("no account holder visible to this key") unless holder
+  # The tester's details come from Apple's own user record.
+  Spaceship::ConnectAPI.post_bulk_beta_tester_assignments(
+    beta_group_id: group.id,
+    beta_testers: [{ email: holder.email, firstName: holder.first_name, lastName: holder.last_name }]
+  )
+  UI.success("group '#{GROUP}' ready, account holder added")
+end

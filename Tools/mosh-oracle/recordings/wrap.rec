@@ -1,0 +1,23 @@
+# Long lines that wrap, as output and on the command line.
+size 60, 20
+seed 12
+expect "golden$ "
+type "printf '%0300d\\n' 7\r"
+expect "golden$ "
+type "cat wrap.txt\r"
+expect "golden$ "
+# a command line longer than the window, then edited in its first row
+type "echo aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 15
+send "\x01"
+wait 200
+type "true && "
+send "\x05"
+wait 200
+send "\x7f\x7f\x7f"
+wait 200
+send "\r"
+expect "golden$ "
+type "seq -s ' ' 1 200\r"
+expect "golden$ "
+type "exit\r"
+exit

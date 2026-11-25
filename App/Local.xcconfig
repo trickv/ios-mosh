@@ -1,0 +1,13 @@
+// Used by the app target for Debug and Release.
+// The marketing version, for both apps (the Dev app and the TestFlight app), is set
+// here and only here; App/fastlane/Fastfile reads it too. Bump it for every
+// TestFlight upload, with its section in CHANGELOG.md (docs/BUILD.md, "TestFlight").
+MARKETING_VERSION = 0.2.1
+// Defaults, so a build without the generated files still works.
+CURRENT_PROJECT_VERSION = 0
+IOSMOSH_GIT_SHA = unknown
+
+// Written by scripts/mac.sh before each sync (commit count and short SHA).
+#include? "Version.xcconfig"
+// Exists only on the Mac: team, identity, profile. See docs/BUILD.md.
+#include? "Signing.xcconfig"

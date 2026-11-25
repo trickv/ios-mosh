@@ -1,0 +1,9 @@
+# Titles (OSC 0, 1, 2) and the bell.
+size 80, 24
+seed 20
+expect "golden$ "
+type "bash titles.sh\r"
+expect "done"
+expect "golden$ "
+type "exit\r"
+exit

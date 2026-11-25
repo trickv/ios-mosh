@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  The app's privacy manifest (Apple, "Privacy manifest files" and "Describing use of required
+  reason API", read 2026-11-24). No tracking, no tracking domains, no collected data (PRIVACY.md).
+  The required reason APIs of the app's own code in Release builds (App/IOSMosh, App/SurfaceKit
+  and the MoshKit package, all linked into the app's executable):
+  - User defaults: the settings (AppSettings, KeyBarView's tmux prefix), the app's own domain only.
+  - File timestamps: lstat to see whether a file of the app's own is there (SessionFiles,
+    MoshResume Storage), the modification date and size of a session's snapshot to know when its
+    row must be read again (SessionPreview), the size of the debug log (DebugLog), all inside the
+    app container (C617.1); and the newest modification date of a session's files, shown on its
+    row as "last used ... ago" (SessionList, DDA9.1). Nothing derived from them leaves the phone.
+  Not used in Release builds: system boot time (no systemUptime or mach_absolute_time; elapsed
+  times come from DispatchTime and clock_gettime(CLOCK_MONOTONIC), which Apple does not list),
+  disk space, active keyboards. Left out as Debug-only (#if DEBUG): DeviceProbe and StageTwoProbe
+  (file size, protection class, lstat) and the UI-test launch arguments read from user
+  defaults; the reasons above would cover them anyway.
+  Bundled packages that declare their own use: swift-nio's NIOPosix (file timestamps, 0A2A.1)
+  and swift-crypto's Crypto (none), in their resource bundles in the app. SwiftTerm has no
+  manifest; its one such call (fstat for the file size of a kitty graphics file, a feature the
+  app never feeds it) is in the app's executable and falls under the file timestamp entry.
+-->
+<plist version="1.0">
+<dict>
+	<key>NSPrivacyTracking</key>
+	<false/>
+	<key>NSPrivacyTrackingDomains</key>
+	<array/>
+	<key>NSPrivacyCollectedDataTypes</key>
+	<array/>
+	<key>NSPrivacyAccessedAPITypes</key>
+	<array>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array>
+				<string>CA92.1</string>
+			</array>
+		</dict>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array>
+				<string>C617.1</string>
+				<string>DDA9.1</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

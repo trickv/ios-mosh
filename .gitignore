@@ -1,0 +1,27 @@
+.build/
+.build-*/
+.swiftpm/
+*.xcodeproj
+xcuserdata/
+DerivedData/
+App/Version.xcconfig
+App/Signing.xcconfig
+scripts/mac.env
+scripts/smoke.env
+.DS_Store
+/out/
+/tmp/
+*.pcap
+.refs/
+.worktrees/
+App/IOSMosh/Info.plist
+# Signing material and credentials never belong in the repository (they live in
+# charlie:~/signing only).
+*.p8
+*.p12
+*.cer
+*.certSigningRequest
+*.mobileprovision
+signing/
+kc.pass
+.env

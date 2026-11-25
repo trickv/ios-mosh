@@ -1,0 +1,25 @@
+# Window resizes while vim is open.
+size 80, 24
+seed 23
+expect "golden$ "
+type "vim hello.c\r"
+expect "hello.c"
+wait 1200
+resize 100, 30
+wait 600
+type "10j", 80
+resize 40, 10
+wait 600
+type "iinserted \x1b", 40
+resize 80, 1
+wait 600
+resize 2, 24
+wait 600
+resize 80, 24
+wait 600
+send "\x0c"
+wait 400
+type ":qa!\r", 40
+expect "golden$ "
+type "exit\r"
+exit

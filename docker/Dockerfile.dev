@@ -1,0 +1,16 @@
+# Dev and test image: Swift toolchain, real mosh-server 1.4.0, sshd, netem tools,
+# and a built mosh 1.4.0 source tree for Tools/mosh-oracle.
+FROM swift:6.2-noble
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      zlib1g-dev mosh openssh-server openssh-client iproute2 iputils-ping locales \
+      g++ make tcpdump tmux vim htop procps psmisc autoconf automake pkg-config \
+      protobuf-compiler libprotobuf-dev libncurses-dev libssl-dev \
+      python3 netcat-openbsd less git ca-certificates curl jq \
+ && locale-gen en_US.UTF-8 \
+ && rm -rf /var/lib/apt/lists/*
+ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
+RUN git clone --depth 1 --branch mosh-1.4.0 https://github.com/mobile-shell/mosh /opt/mosh-src \
+ && cd /opt/mosh-src && ./autogen.sh && ./configure && make -j"$(nproc)"
+RUN mkdir -p /run/sshd
+WORKDIR /work

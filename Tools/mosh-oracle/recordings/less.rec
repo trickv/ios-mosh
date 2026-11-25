@@ -1,0 +1,21 @@
+# less on a long file: page down, search, end, start, line moves, quit.
+size 80, 24
+seed 16
+expect "golden$ "
+type "less long.txt\r"
+wait 600
+send " "
+wait 300
+send " "
+wait 300
+type "/line 150\r", 50
+wait 400
+send "G"
+wait 400
+send "g"
+wait 400
+type "jjjkk", 80
+send "q"
+expect "golden$ "
+type "exit\r"
+exit

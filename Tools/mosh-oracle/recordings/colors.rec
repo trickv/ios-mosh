@@ -1,0 +1,9 @@
+# 16, 256 and true colour patterns, attributes, background colour erase.
+size 80, 24
+seed 18
+expect "golden$ "
+type "bash colors.sh\r"
+expect "done"
+expect "golden$ "
+type "exit\r"
+exit

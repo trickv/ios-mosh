@@ -1,0 +1,42 @@
+{"num":1,"cursor":[0,9],"combining":[0,8],"params":"25","dispatch_chars":[63,104],"parsed":true,"parsed_params":[25],"rows":{"0":[{"e":8},{"t":"A"},{"e":31}]}}
+{"num":2,"cursor":[0,17],"combining":[0,16],"rows":{"0":[{"e":8},{"t":"A"},{"e":7},{"t":"B"},{"e":23}]}}
+{"num":3,"cursor":[0,33],"combining":[0,32],"rows":{"0":[{"e":8},{"t":"A"},{"e":7},{"t":"B"},{"e":15},{"t":"C"},{"e":7}]}}
+{"num":4,"cursor":[0,3],"combining":[0,3],"params":"1;4","dispatch_chars":[72],"parsed_params":[1,4]}
+{"num":5}
+{"num":6,"cursor":[0,4],"rows":{"0":[{"e":3},{"t":"D"},{"e":4},{"t":"A"},{"e":7},{"t":"B"},{"e":15},{"t":"C"},{"e":7}]}}
+{"num":7,"cursor":[1,4],"combining":[1,3],"params":"25","dispatch_chars":[63,104],"parsed_params":[25],"rows":{"1":[{"e":3},{"t":"a"},{"e":36}]}}
+{"num":8,"cursor":[1,25],"combining":[1,24],"rows":{"1":[{"e":3},{"t":"a"},{"e":20},{"t":"b"},{"e":15}]}}
+{"num":9,"cursor":[1,33],"combining":[1,32],"rows":{"1":[{"e":3},{"t":"a"},{"e":20},{"t":"b"},{"e":7},{"t":"c"},{"e":7}]}}
+{"num":10,"cursor":[1,39],"combining":[1,39],"rows":{"1":[{"e":3},{"t":"a"},{"e":20},{"t":"b"},{"e":7},{"t":"c"},{"e":6},{"t":"d"}]}}
+{"num":11,"cursor":[1,29],"combining":[1,29],"params":"2;30","dispatch_chars":[72],"parsed_params":[2,30]}
+{"num":12,"cursor":[1,25],"combining":[1,24],"params":"25","dispatch_chars":[63,104],"parsed_params":[25],"rows":{"1":[{"e":3},{"t":"a"},{"e":20},{"t":"e"},{"e":7},{"t":"c"},{"e":6},{"t":"d"}]}}
+{"num":13,"cursor":[1,17],"combining":[1,17],"rows":{"1":[{"e":3},{"t":"a"},{"e":12},{"t":"f"},{"e":7},{"t":"e"},{"e":7},{"t":"c"},{"e":6},{"t":"d"}]}}
+{"num":14,"combining":[1,16],"rows":{"1":[{"e":3},{"t":"a"},{"e":12},{"t":"g"},{"e":7},{"t":"e"},{"e":7},{"t":"c"},{"e":6},{"t":"d"}]}}
+{"num":15,"cursor":[1,1],"combining":[1,0],"rows":{"1":[{"t":"h"},{"e":2},{"t":"a"},{"e":12},{"t":"g"},{"e":7},{"t":"e"},{"e":7},{"t":"c"},{"e":6},{"t":"d"}]}}
+{"num":16,"cursor":[2,8],"combining":[2,8],"params":"3;9","dispatch_chars":[72],"parsed_params":[3,9]}
+{"num":17,"params":"25","dispatch_chars":[63,104],"parsed_params":[25]}
+{"num":18,"cursor":[2,4],"combining":[2,3],"rows":{"2":[{"e":3},{"t":"I"},{"e":36}]}}
+{"num":19,"cursor":[2,16],"combining":[2,16],"params":"3;17","dispatch_chars":[72],"parsed_params":[3,17]}
+{"num":20}
+{"num":21,"cursor":[2,25],"combining":[2,24],"params":"25","dispatch_chars":[63,104],"parsed_params":[25],"rows":{"2":[{"e":3},{"t":"I"},{"e":20},{"t":"J"},{"e":15}]}}
+{"num":22,"cursor":[2,11],"combining":[2,11],"params":"3;12","dispatch_chars":[72],"parsed_params":[3,12]}
+{"num":23,"cursor":[2,12],"combining":[2,12],"params":"25","dispatch_chars":[63,104],"parsed_params":[25],"rows":{"2":[{"e":3},{"t":"I"},{"e":7},{"t":"K"},{"e":12},{"t":"J"},{"e":15}]}}
+{"num":24,"width":60,"tabs":[0,8,16,24,32,40,48,56],"params":"1005","dispatch_chars":[63,108],"parsed_params":[1005],"rows":{"0":[{"t":"   D    A"},{"e":7},{"t":"B"},{"e":15},{"t":"C"},{"e":27}],"1":[{"t":"h  a"},{"e":12},{"t":"g"},{"e":7},{"t":"e"},{"e":7},{"t":"c"},{"e":6},{"t":"d"},{"e":20}],"2":[{"t":"   I"},{"e":7},{"t":"K"},{"e":12},{"t":"J"},{"e":35}],"3":[{"e":60}],"4":[{"e":60}],"5":[{"e":60}]}}
+{"num":25,"cursor":[3,57],"combining":[3,56],"params":"25","dispatch_chars":[63,104],"parsed_params":[25],"rows":{"3":[{"e":56},{"t":"L"},{"e":3}]}}
+{"num":26}
+{"num":27,"cursor":[4,59],"combining":[4,59],"params":"1005","dispatch_chars":[63,108],"parsed_params":[1005],"rows":{"4":[{"e":59},{"t":"M"}]}}
+{"num":28,"cursor":[4,5],"combining":[4,5]}
+{"num":29,"cursor":[4,6],"rows":{"4":[{"e":5},{"t":"N"},{"e":53},{"t":"M"}]}}
+{"num":30,"width":80,"combining":[4,6],"tabs":[0,8,16,24,32,40,48,56,64,72],"rows":{"0":[{"t":"   D    A"},{"e":7},{"t":"B"},{"e":15},{"t":"C"},{"e":47}],"1":[{"t":"h  a"},{"e":12},{"t":"g"},{"e":7},{"t":"e"},{"e":7},{"t":"c"},{"e":6},{"t":"d"},{"e":40}],"2":[{"t":"   I"},{"e":7},{"t":"K"},{"e":12},{"t":"J"},{"e":55}],"3":[{"e":56},{"t":"L"},{"e":23}],"4":[{"e":5},{"t":"N"},{"e":53},{"t":"M"},{"e":20}],"5":[{"e":80}]}}
+{"num":31,"cursor":[4,79],"combining":[4,79],"params":"25","dispatch_chars":[63,104],"parsed_params":[25],"rows":{"4":[{"e":5},{"t":"O"},{"e":53},{"t":"M"},{"e":19},{"t":"P"}]}}
+{"num":32,"width":20,"cursor":[4,19],"combining":[4,19],"tabs":[0,8,16],"params":"1005","dispatch_chars":[63,108],"parsed_params":[1005],"rows":{"0":[{"t":"   D    A"},{"e":7},{"t":"B"},{"e":3}],"1":[{"t":"h  a"},{"e":12},{"t":"g"},{"e":3}],"2":[{"t":"   I"},{"e":7},{"t":"K"},{"e":8}],"3":[{"e":20}],"4":[{"e":5},{"t":"O"},{"e":14}],"5":[{"e":20}]}}
+{"num":33,"cursor":[5,18],"combining":[5,18],"rows":{"5":[{"e":5},{"t":"Q"},{"e":13},{"t":"R"}]}}
+{"num":34,"cursor":[0,19],"combining":[0,19],"params":"25","dispatch_chars":[63,104],"parsed_params":[25],"rows":{"0":[{"t":"tttttttttttttttttttt"}]}}
+{"num":35}
+{"num":36,"cursor":[1,1],"combining":[1,0],"rows":{"0":[{"t":"ttttttttttttttttttt"},{"t":"t","wrap":true}],"1":[{"t":"S  a"},{"e":12},{"t":"g"},{"e":3}]}}
+{"num":37,"cursor":[1,5],"combining":[1,5]}
+{"num":38,"cursor":[1,6],"rows":{"1":[{"t":"S  a"},{"e":1},{"t":"T"},{"e":10},{"t":"g"},{"e":3}]}}
+{"num":39}
+{"num":40,"cursor":[1,7],"combining":[1,6],"rows":{"1":[{"t":"S  a"},{"e":1},{"t":"TU"},{"e":9},{"t":"g"},{"e":3}]}}
+{"num":41,"cursor":[0,0],"combining":[0,0],"rows":{"0":3,"1":3,"2":[{"t":"   "},{"e":17}],"4":3,"5":3}}
+{"num":42,"cursor":[0,17],"combining":[0,16],"rows":{"0":[{"e":8},{"t":"V"},{"e":7},{"t":"W"},{"e":3}]}}

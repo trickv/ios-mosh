@@ -1,0 +1,1 @@
+terminal,ssh,shell,mobile shell,remote,server,console,command line,cli,sysadmin,devops,session

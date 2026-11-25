@@ -1,0 +1,30 @@
+iOS-mosh is a terminal for mosh (mobile shell) sessions. The session runs on your server, so it is still there after iOS suspends or closes the app.
+
+WHAT YOU NEED
+- A server you can log in to over SSH, with an Ed25519 key made by the app or with a password, and an Ed25519 or ECDSA host key.
+- mosh-server installed on it (the app is built and tested against mosh 1.4.0).
+- A UDP port range open to the phone (mosh's default is 60001 to 60999; the range can be set per host).
+
+WHAT IT DOES
+- Sessions survive: when iOS suspends or closes the app, when you force-quit it, or when the phone restarts, the session is saved on the phone and comes back where it was, as long as mosh-server still runs on the server.
+- Several sessions at once, on one host or on several. Each open session is a row under its host in the list, with its window title or last line, when it was started and when it was last used. Going back to the list keeps the session; its row brings it back. End a session from the shell, from the terminal's menu, or by swiping its row.
+- Local echo, as in mosh: Adaptive (mosh's default), Always or Never, set per host.
+- A key bar above the keyboard: Esc, sticky Ctrl and Alt, Tab, arrows with repeat, Paste, PgUp, PgDn, Home, End, symbols and a tmux prefix key. A hardware keyboard works too.
+- The Hack Nerd Font is built in, so powerline and icon glyphs show. Themes (System, Tango Dark, Tango Light), cursor shapes, and pinch to change the font size.
+- Copy from the server to the iPhone clipboard with OSC 52 (tmux, neovim), with a switch per host.
+- A start command per host, with presets that attach to tmux (tmux new -A -s main).
+- Login keys stay in this phone's Keychain. The app shows the public key to copy or share, and after a password login it offers to add its key to the server's authorized_keys. A host's key is shown for confirmation on the first connection and checked after that.
+
+LIMITS
+- mosh only. There is no plain SSH shell, no file transfer and no port forwarding. SSH is used only to start mosh-server, to stop one that a session left behind or that did not answer an End Session, and to add the app's key when you ask.
+- No scrollback on the phone: mosh sends the current screen only. Use the scrollback of tmux or of the program on the server; a per-host switch makes a vertical swipe send PgUp and PgDn.
+- One session is on screen at a time, at the phone's screen size (it follows rotation and font size). iPhone layout only.
+- Login with the app's own key or a password. No key import, no two-factor or keyboard-interactive login, no jump hosts. Hosts with only RSA host keys are refused.
+- A session can be resumed only at the address it was started on. Use a host name that reaches the server from every network you use.
+- If the app crashes while it is on screen, that session cannot be resumed: the app starts a new one. With a tmux start command you land in the same tmux session.
+- Sessions that are not on screen show no bell and no badge.
+
+PRIVACY
+The app collects nothing. It has no accounts, no analytics and no ads, and it talks only to the servers you add.
+
+Free software under the GNU General Public License, version 3 or later. Parts are ported from mosh.

@@ -1,0 +1,9 @@
+# Emoji, CJK, combining marks and wide characters at the right margin, from printf.
+size 40, 16
+seed 17
+expect "golden$ "
+type "bash unicode.sh\r"
+expect "done"
+expect "golden$ "
+type "exit\r"
+exit

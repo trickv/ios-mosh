@@ -1,0 +1,32 @@
+# vim: open a file with syntax colours, insert, scroll, visual mode, :split, quit.
+size 80, 24
+seed 13
+expect "golden$ "
+type "vim hello.c\r"
+expect "hello.c"
+wait 1200
+type "jjj", 80
+type "owritten by vim;\x1b", 40
+wait 300
+send "\x06"
+wait 400
+send "\x06"
+wait 400
+send "\x02"
+wait 400
+type "ggVjjj", 80
+wait 300
+send "\x1b"
+wait 200
+type ":split\r", 40
+wait 500
+send "\x17j"
+wait 300
+type "G", 80
+wait 300
+type "/fib\r", 60
+wait 300
+type ":qa!\r", 40
+expect "golden$ "
+type "exit\r"
+exit

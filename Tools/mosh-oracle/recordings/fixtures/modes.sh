@@ -1,0 +1,17 @@
+# Fixture for the modes recording: bracketed paste, mouse, focus and other mode toggles.
+p() { printf "$@"; sleep 0.15; }
+p 'bracketed paste on\e[?2004h\n';  p 'bracketed paste off\e[?2004l\n'
+p 'mouse x10\e[?9h\n';              p 'mouse vt200\e[?1000h\n'
+p 'mouse hilite\e[?1001h\n';        p 'mouse button-event\e[?1002h\n'
+p 'mouse any-event\e[?1003h\n';     p 'mouse sgr encoding\e[?1006h\n'
+p 'mouse utf8 encoding\e[?1005h\n'; p 'mouse urxvt encoding\e[?1015h\n'
+p 'mouse encoding off\e[?1015l\n';  p 'mouse off\e[?1003l\n'
+p 'mouse 1000 and 1006 together\e[?1000;1006h\n'
+p 'focus on\e[?1004h\n';            p 'focus off\e[?1004l\n'
+p 'alternate scroll on\e[?1007h\n'; p 'alternate scroll off\e[?1007l\n'
+p 'application cursor keys on\e[?1h\n'; p 'application cursor keys off\e[?1l\n'
+p 'cursor hidden\e[?25l\n';         p 'cursor shown\e[?25h\n'
+p 'reverse video on\e[?5h\n';       p 'reverse video off\e[?5l\n'
+p 'all off\e[?1000l\e[?1006l\e[?2004l\n'
+p 'alternate screen (mosh has none)\e[?1049h\e[?1049l\n'
+p 'done\n'

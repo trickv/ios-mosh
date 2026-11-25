@@ -1,0 +1,10 @@
+# htop: five seconds of updates (two per second).
+size 80, 24
+seed 15
+expect "golden$ "
+type "htop -d 5\r"
+wait 5000
+send "q"
+expect "golden$ "
+type "exit\r"
+exit
