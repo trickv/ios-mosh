@@ -26,23 +26,18 @@ Standing rules from Trick (2026-11-12):
   `private-main`, an old tag, or anything that descends from the old history to `origin`: a
   pre-push hook in this checkout refuses it; keep it. Keep to the redaction rules of
   `docs/notes/publication/redaction.md` in every tracked file and commit message.
-- **State 2026-11-24:** several sessions at once is built; **TestFlight has 0.2.1 (237)**,
-  uploaded 2026-11-24 08:05 UTC from `1ea56fc` (tags `v0.2.1-237`, `v0.2-229`): the GPL text, the
-  App Store permission (`COPYING.iOS`: mosh's statement and his own GPLv3 section 7 permission)
-  and the third-party licences and notices under About, a Privacy page and the privacy manifest,
-  bars readable in light mode. The next upload needs his word again (changelog section, bumped
-  version in `App/Local.xcconfig`). The App Store listing is filled and NOT submitted (lane
-  `listing`; his to do in the web interface: App Privacy, age rating, content rights, price and
-  availability, the version string, a build, Submit).
-  **Publication (his plan: open source with a blog post):** the docs are redacted in the tree
-  (`0c9614c`, `docs/notes/publication/redaction.md`); the old history is NOT redacted, so the
-  public repository is made from the tree as a fresh history, after a final audit of exactly
-  that tree, and only on his word. From now on write no address, tailnet name, port, host
-  security detail, exact OS release of his hosts, or name of his other repositories into any
-  tracked file: use the placeholders of `redaction.md`. Real host values live in untracked
-  env files (`scripts/mac.env`, `scripts/smoke.env`).
+- **State 2026-11-25:** the repository is public (root commit `5131915`); **TestFlight has
+  0.2.2 (242)**, the first build made from the public repository (`171c963`, tag `v0.2.2-242`):
+  the same app as 0.2.1 (the GPL text, `COPYING.iOS`, third-party licences and notices, the
+  Privacy page and manifest, bars readable in light mode). Build numbers are the commit count
+  plus 240 (`scripts/mac.sh`), because the public history starts at one commit. The next upload
+  needs his word again (a changelog section, a bumped version in `App/Local.xcconfig`).
+  The App Store listing is filled and NOT submitted (lane `listing`): texts, screenshots, the
+  support and privacy links, version 0.2.2. His to do in the web interface: App Privacy, the
+  age rating, content rights, price and availability, attach build 242, Submit.
   The Dev app on his phone has build 220. Open with him: design question 10.2; a notice when
-  `hg` does not confirm an End Session; the theme "System" stays dark in light mode.
+  `hg` does not confirm an End Session; the theme "System" stays dark in light mode; whether
+  the 5-hour usage line stays at 95% or returns to 60%, and the weekly stop for the new week.
 - **TestFlight, standing instructions** (Trick, 2026-11-22 01:50 UTC, his words): "when you push
   builds to TestFlight be sure to include a changelog and bump the version appropriately" and
   "Once you're done with this multi-connect feature push a build to TestFlight". So: one upload is

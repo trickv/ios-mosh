@@ -480,6 +480,24 @@ standing instruction for a round and the log between rounds. The owner is Trick
   The release step was done by the main session without a second agent (usage: week 93%).
   Open: his clicks in App Store Connect; the public copy and its audit; the first build cut
   from the public repository; the theme "System" staying dark in light mode.
+- 2026-11-25 01:55 UTC: **The repository is public and TestFlight has 0.2.2 (242), built from
+  it.** On Trick's word ("hit it, finish the work"; "Slam it"): the final audit of the tree took
+  four passes (corrections `4c1935f`, `ea67bb3`, `c9c45d4`, `fe86ef5` in the history that is not
+  published): the first pass found ten things left and stopped at the weekly usage limit; after
+  his reset two readers went line by line through everything it had not reached; the last look
+  was clean, and the sweep for the 410 known real values found none in the 683 tracked files.
+  Then: a root commit of that tree (`5131915`), the old repository renamed and kept private
+  with the whole history and the old tags, a new `trickv/ios-mosh` created, pushed and made
+  public. A pre-push hook in the working checkout refuses to push to the public repository
+  anything that does not descend only from the root commit (tested with the old branch).
+  `171c963` is release 0.2.2: the same app as 0.2.1, from the public source, with the build
+  number continued by an offset on the commit count; "Successfully finished processing the
+  build 0.2.2 - 242", "Successfully set the changelog for build"; tag `v0.2.2-242`. The
+  listing lane now sends the support and privacy links and the version: "Successfully set the
+  version to '0.2.2'", nothing submitted.
+  From here every push is public: keep to `docs/notes/publication/redaction.md`.
+  Left with Trick: his entries in App Store Connect (App Privacy, age rating, content rights,
+  price and availability, attach build 242, Submit); the usage lines for the new week.
 
 ## After the rounds (from 2026-11-15)
 
